@@ -78,11 +78,16 @@ knitr::opts_chunk$set(echo = FALSE)
           - [Software-Carpentry][8] [Data Carpentry][9]
 
 ## Pandas For Everyone
+<div class="column-left2">
 I'm an Author! :O
 
 <center>
-<img src="./figs/pandas_for_everyone_cover.jpg" height='400px'>
+<img src="./figs/pandas_for_everyone_cover.jpg" height='400px' />
 </center>
+</div>
+<div class="column-right2">
+<img src='./figs/twitter_pandas_stand.png' width='100%' />
+</div>
 
 # Doing Data Science
 
@@ -113,6 +118,12 @@ I'm an Author! :O
 
 ## Last year...
 
+<center>
+<img src='./figs/twitter_teach_all_the_things.png' height='500px' />
+</center>
+
+## Structure your projects!
+
 <img src='./figs/noble-2009.png' width='100%' />
 
 ## (Computational Biology) Project Structure
@@ -126,11 +137,40 @@ I'm an Author! :O
 - [Reproducible-Science-Curriculum/rr-init][14]
 - [chendaniely/computational-project-cookie-cutter][15]
 
-## Best Practices for Scientific Computing
+```bash
+cd $1
+mkdir doc data src bin results
+
+cd doc
+echo "Doc directory with one subdirectory per manuscript" > README
+touch .gitkeep
+
+cd ../data
+echo "Data directory for storing fixed data sets" > README
+touch .gitkeep
+
+cd ../src
+echo "src for source code" > README
+touch .gitkeep
+
+cd ../bin
+echo "bin for compiled binaries or scripts" > README
+touch .gitkeep
+
+cd ../results
+echo "Results directory for tracking computational experiments peformed on data" > README
+touch .gitkeep
+
+echo "Folders created."
+
+cd ..
+```
+
+## Best Practices for Scientific Computing (2014)
 
 <img src='./figs/wilson-2014.png' width='100%' />
 
-## Good enough practices in scientific computing
+## Good enough practices in scientific computing (2017)
 
 <img src='./figs/wilson-2017.png' width='100%' />
 
@@ -162,6 +202,7 @@ Good Enough
   <li> Manuscripts</li>
 </ol>
 </div>
+
 ## SDAL's Infrastructure
 
 ## Docker
