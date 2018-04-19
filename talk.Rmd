@@ -15,6 +15,33 @@ editor_options:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+<style>
+.column-left3{
+  float: left;
+  width: 33%;
+  text-align: left;
+}
+.column-center3{
+  display: inline-block;
+  width: 33%;
+  text-align: center;
+}
+.column-right3{
+  float: right;
+  width: 33%;
+  text-align: right;
+}
+.column-left2{
+  float: left;
+  width: 50%;
+  text-align: left;
+}
+.column-right2{
+  float: right;
+  width: 50%;
+  text-align: left;
+}
+
 # Hi!
 
 ## I'm Daniel
@@ -85,12 +112,55 @@ I'm an Author! :O
 
 ## Last year...
 
-Computational biology project cookie cutter
+<img src='./figs/noble-2009.png' width='100%' />
+
+## (Computational Biology) Project Structure
+
+<center>
+<img src='./figs/noble_dir_structure.png' height='500px'/>
+</center>
+
+## Script it!
+
+- [Reproducible-Science-Curriculum/rr-init][14]
+- [chendaniely/computational-project-cookie-cutter][15]
 
 ## Best Practices for Scientific Computing
 
+<img src='./figs/wilson-2014.png' width='100%' />
+
 ## Good enough practices in scientific computing
 
+<img src='./figs/wilson-2017.png' width='100%' />
+
+## tl;dr
+
+<div class="column-left2">
+Best Practices
+<br>
+<ol>
+  <li> Write programs for people, not computers </li>
+  <li> Let the computer do the work </li>
+  <li> Make incremental changes </li>
+  <li> Don't repeat yourself (or others) </li>
+  <li> Plan for mistakes </li>
+  <li> Optimize software only after it works correctly </li>
+  <li> Document design and purpose, not mechanics </li>
+  <li> Collaborate </li>
+</ol>
+</div>
+<div class="column-right2">
+Good Enough
+<br>
+<ol>
+  <li> Data management</li>
+  <li> Software</li>
+  <li> Collaboration</li>
+  <li> Project Organization</li>
+  <li> Keeping track of changes</li>
+  <li> Manuscripts</li>
+</ol>
+</div>
 ## SDAL's Infrastructure
 
 ## Docker
@@ -186,3 +256,5 @@ Show how to 'test' outside a package
 [11]: https://conference.scipy.org/
 [12]: http://www.datacommunitydc.org/meetups-overview/
 [13]: https://www.slideshare.net/continuumio/journey-to-open-data-science
+[14]: https://github.com/Reproducible-Science-Curriculum/rr-init
+[15]: https://github.com/chendaniely/computational-project-cookie-cutter
