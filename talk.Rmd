@@ -1,0 +1,188 @@
+---
+title: "Doing Data Science"
+subtitle: "NYC R Conference 2018"
+author: "Daniel Chen (@chendaniely)"
+date: "April 20, 2018"
+output:
+    ioslides_presentation:
+        widescreen: true
+        smaller: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Hi!
+
+## I'm Daniel
+
+<div class="columns-2">
+  <img src="./figs/me.jpg" width="100%" />
+  <br>
+
+  - Data Engineer, Research Associate
+      - [Social and Decision Analytics Laboratory][1]
+      - [Biocomplexity Institute at Virginia Tech][2]
+  - PhD Student
+      - [Genetics, Bioinformatics, and Computational Biology][3]
+      - Leveraging government, administrative, and open data sets for public health
+  - Data Scientist
+      - [Lander Analytics][4]
+  - Instructor
+      - [DataCamp][5]
+          - [Cleaning Data in Python][6], Python for useRs
+      - [The Carpentries][7]
+          - [Software-Carpentry][8] [Data Carpentry][9]
+</div>
+
+# Thanks
+
+## Community | Y'all
+
+- #rstatsnyc
+- [@DataCommunityDC][12]
+- [PyData][10]
+- [SciPy][11]
+- [The Carpentries][7]
+          - [Software-Carpentry][8] [Data Carpentry][9]
+
+## Pandas For Everyone
+I'm an Author! :O
+
+<center>
+<img src="./figs/pandas_for_everyone_cover.jpg" height='400px'>
+</center>
+
+# Doing Data Science
+
+## R! **and** Python!
+
+<center>
+<img src='./figs/twitter_r_and_python.png' height='500px'/>
+</center>
+
+## What is it? | Tools Used
+
+<center>
+<img src='./figs/anaconda_ds_tools.jpg' height='400px' />
+</center>
+
+<small>
+[Journey to Open Data Science, Anaconda (Continuum Analytics)][13]
+</small>
+
+## What is it? | Tasks Performed
+<center>
+<img src='./figs/anaconda_ds_do.jpg' height='400px' />
+</center>
+
+<small>
+[Journey to Open Data Science, Anaconda (Continuum Analytics)][13]
+</small>
+
+## Last year...
+
+Computational biology project cookie cutter
+
+## Best Practices for Scientific Computing
+
+## Good enough practices in scientific computing
+
+## SDAL's Infrastructure
+
+## Docker
+
+## Software and Code
+
+## Rstudio
+
+community edition great for individual use...
+Exploring rstudio pro... much better suited for parallel projects and groups
+
+## Authorship
+
+## Project Template
+
+## R Package
+
+## Balancing good practices
+
+## Saving things
+
+## Secrets
+
+## Opening things
+
+rstudioapi::openProject(newProject)
+here
+https://github.com/r-lib/rprojroot
+
+# Cookbooks
+
+## Graphics
+
+## 
+
+
+A Better Default Colormap for Matplotlib | SciPy 2015 | Nathaniel Smith and Stéfan van der Walt
+- https://www.youtube.com/watch?v=xAoljeRJ3lU
+- "perceptually uniform"
+- Sequential
+- Works well in black-and-white
+- Colorblind friendly
+- Matlab: parula
+
+## Virdis
+
+*Dendroaspis* virdis, a snake
+*Chromis* virdis, a fish
+*Tersina* virdis, a bird
+
+vs parula: more brightness variation
+
+Viscm, a tool to see how "good" your colormap is: http://bids.github.io/colormap/
+
+Perceptual Color Maps in matplotlib for Oceanography | SciPy 2015 | Kristen Thyng
+- Domain specific color maps (Oceanography)
+- https://www.youtube.com/watch?v=XjHzLUnHeM0
+
+- R Package
+https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
+
+Simon Garnier, **Noam Ross**, Bob Rudis, Marco Sciaini, Cédric Scherer
+
+## Themes
+
+## Other things (GIS)
+
+## Make your own "flight rules"
+
+## RMarkdown
+
+link to markdown talk(s)
+
+mention the 'fix' to knitting documents
+
+## Testing
+
+Link to talk 2 years ago
+
+Show how to 'test' outside a package
+
+
+[1]: https://www.bi.vt.edu/sdal
+[2]: https://www.bi.vt.edu/
+[3]: http://gbcb.vbi.vt.edu/
+[4]: https://www.landeranalytics.com/
+[5]: https://www.datacamp.com/
+[6]: https://www.datacamp.com/courses/cleaning-data-in-python
+[7]: https://carpentries.org/
+[8]: https://software-carpentry.org/
+[9]: http://www.datacarpentry.org/
+[10]: https://pydata.org/
+[11]: https://conference.scipy.org/
+[12]: http://www.datacommunitydc.org/meetups-overview/
+[13]: https://www.slideshare.net/continuumio/journey-to-open-data-science
