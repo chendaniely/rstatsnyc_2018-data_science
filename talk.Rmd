@@ -20,6 +20,7 @@ knitr::opts_chunk$set(echo = FALSE)
   float: left;
   width: 33%;
   text-align: left;
+  
 }
 .column-center3{
   display: inline-block;
@@ -108,8 +109,9 @@ I'm an Author! :O
 </small>
 
 ## What is it? | Tasks Performed
+
 <center>
-<img src='./figs/anaconda_ds_do.jpg' height='400px' />
+<img src='./figs/anaconda_ds_do.jpg' height='400px'/>
 </center>
 
 <small>
@@ -166,11 +168,11 @@ echo "Folders created."
 cd ..
 ```
 
-## Best Practices for Scientific Computing (2014)
+## Best Practices ... (2014)
 
 <img src='./figs/wilson-2014.png' width='100%' />
 
-## Good enough practices in scientific computing (2017)
+## Good enough practices ... (2017)
 
 <img src='./figs/wilson-2017.png' width='100%' />
 
@@ -203,9 +205,49 @@ Good Enough
 </ol>
 </div>
 
-## SDAL's Infrastructure
+## <!-- DSPG --> <img src='./figs/logo_sdal_horizontal.png' height='65px'/> Summer Program | Influx of 20 people into the lab
 
-## Docker
+<center>
+<img src='./figs/sdal_dspg.png' width='100%' />
+</center>
+
+<small>
+https://www.bi.vt.edu/sdal/projects/data-science-for-the-public-good-program
+</small>
+
+## <!-- Docker --> <img src='./figs/logo_docker_horizontal.png' />
+
+[From VMs to LXC Containers to Docker Containers][16]
+
+<div class="column-left2">
+<center>
+<img src='./figs/logo_virtualbox.png' height='200px'/>
+<br>
+<img src='./figs/logo_lxc.png' height='200px'/>
+</center>
+</div>
+<div class="column-right2">
+<ul>
+  <li>fully document the setup process</li>
+  <li>tear down and spin up the container if something goes wrong</li>
+  <li>system libraries for R packages</li>
+  <li>easy to try out a new technology before full integration</li>
+</ul>
+</div>
+
+## <!-- Infrastructure --> <img src='./figs/logo_sdal_horizontal.png' height='65px'/> Infrastructure
+
+<center>
+<img src='figs/sdal_infrastructure_docker.png' width='100%'/>
+</center>
+
+## <!-- Project Template --> <img src='./figs/logo_sdal_horizontal.png' height='65px'/> Project Template
+
+<center>
+<img src='figs/sdal_project_template.png' width='100%'/>
+</center>
+
+## R Package
 
 ## Software and Code
 
@@ -216,9 +258,6 @@ Exploring rstudio pro... much better suited for parallel projects and groups
 
 ## Authorship
 
-## Project Template
-
-## R Package
 
 ## Balancing good practices
 
@@ -300,3 +339,4 @@ Show how to 'test' outside a package
 [13]: https://www.slideshare.net/continuumio/journey-to-open-data-science
 [14]: https://github.com/Reproducible-Science-Curriculum/rr-init
 [15]: https://github.com/chendaniely/computational-project-cookie-cutter
+[16]: http://chendaniely.github.io/sdal/2017/07/07/vm_lxc_docker/
