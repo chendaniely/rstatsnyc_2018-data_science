@@ -359,12 +359,12 @@ Virginia Tech Libraries provides free Overleaf Pro+ accounts
 ## Sharing Documenting Projects
 
 <div class="column-left2">
-<img src='./figs/logo_drupal.png' />
+<img src='./figs/logo_drupal.png' height='150px'/>
 </div>
 <div class="column-left2">
-<img src='./figs/logo_python.png' /><br>
-<img src='./figs/logo_django.png' /><br>
-<img src='./figs/logo_wagtail.png' />
+<img src='./figs/logo_python.png' height='150px'/><br>
+<img src='./figs/logo_django.png' height='150px'/><br>
+<img src='./figs/logo_wagtail.png' height='150px'/>
 </div>
 
 # The Skills
