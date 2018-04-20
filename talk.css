@@ -1,0 +1,35 @@
+.column-left3{
+  float: left;
+  width: 33%;
+  text-align: left;
+}
+.column-center3{
+  display: inline-block;
+  width: 33%;
+  text-align: center;
+}
+.column-right3{
+  float: right;
+  width: 33%;
+  text-align: right;
+}
+.column-left2{
+  float: left;
+  width: 50%;
+  text-align: left;
+}
+.column-right2{
+  float: right;
+  width: 50%;
+  text-align: left;
+}
+
+#topright {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: block;
+    background: url(TRbanner.gif) no-repeat;
+    text-indent: -999em;
+    text-decoration: none;
+}

@@ -50,7 +50,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 <div class="columns-2">
   <img src="./figs/me.jpg" width="100%" />
-  <br>
+  <br><br><br>
 
   - Data Engineer, Research Associate
       - [Social and Decision Analytics Laboratory][1]
@@ -58,13 +58,14 @@ knitr::opts_chunk$set(echo = FALSE)
   - PhD Student
       - [Genetics, Bioinformatics, and Computational Biology][3]
       - Leveraging government, administrative, and open data sets for public health
-  - Data Scientist
-      - [Lander Analytics][4]
+  - MPH, Epidemiology, Columbia University
+  - Data Scientist, [Lander Analytics][4]
   - Instructor
-      - [DataCamp][5]
-          - [Cleaning Data in Python][6], Python for useRs
       - [The Carpentries][7]
-          - [Software-Carpentry][8] [Data Carpentry][9]
+        - [Software-Carpentry][8] [Data Carpentry][9]
+      - [DataCamp][5]
+          - [Cleaning Data in Python][6]
+          - Python for useRs
 </div>
 
 # Thanks
@@ -72,11 +73,11 @@ knitr::opts_chunk$set(echo = FALSE)
 ## Community | Y'all
 
 - #rstatsnyc
-- [@DataCommunityDC][12]
+- [DataCommunityDC][12]
 - [PyData][10]
 - [SciPy][11]
 - [The Carpentries][7]
-          - [Software-Carpentry][8] [Data Carpentry][9]
+    - [Software-Carpentry][8] [Data Carpentry][9]
 
 ## Pandas For Everyone
 <div class="column-left2">
@@ -96,6 +97,11 @@ I'm an Author! :O
 
 <center>
 <img src='./figs/twitter_r_and_python.png' height='500px'/>
+</center>
+
+## We're all friends
+<center>
+<img src='./figs/twitter_wes_ursa_labs.png' height='500px'/>
 </center>
 
 ## What is it? | Tools Used
@@ -205,7 +211,7 @@ Good Enough
 </ol>
 </div>
 
-## <!-- DSPG --> <img src='./figs/logo_sdal_horizontal.png' height='65px'/> Summer Program | Influx of 20 people into the lab
+## <!-- DSPG --> <img src='./figs/logo_sdal_horizontal.png' height='65px'/> Summer Program | + ~20 people into the lab ... to stress test!
 
 <center>
 <img src='./figs/sdal_dspg.png' width='100%' />
@@ -217,7 +223,7 @@ https://www.bi.vt.edu/sdal/projects/data-science-for-the-public-good-program
 
 ## <!-- Docker --> <img src='./figs/logo_docker_horizontal.png' />
 
-[From VMs to LXC Containers to Docker Containers][16]
+Blog post: [From VMs to LXC Containers to Docker Containers][16]
 
 <div class="column-left2">
 <center>
@@ -241,87 +247,385 @@ https://www.bi.vt.edu/sdal/projects/data-science-for-the-public-good-program
 <img src='figs/sdal_infrastructure_docker.png' width='100%'/>
 </center>
 
+https://github.com/bi-sdal/dockerimages
+<br>
+https://github.com/bi-sdal/infrastructure_submodules
+
 ## <!-- Project Template --> <img src='./figs/logo_sdal_horizontal.png' height='65px'/> Project Template
 
 <center>
 <img src='figs/sdal_project_template.png' width='100%'/>
 </center>
 
-## R Package
+## Installing R Packages
 
-## Software and Code
+- Separate Docker Container for installing R packages (`rpkgs`)
+- This installs R packages into a persistent docker volume
+- Everyone has `/rpkgs` mounted in their `rstudio` container
+- Add `/rpkgs` to everyone's `.libPaths()`
+```R
+site_path = R.home(component = "home")
+### <b>
+fname = file.path(site_path, "etc", "Rprofile.site")
+write(".libPaths(c('/rpkgs', .libPaths()))", file = fname, append = TRUE) # prepend to .libPaths
+### </b>
+write('local({r <- getOption("repos"); r["CRAN"] <- "https://cloud.r-project.org/"; options(repos=r)})',
+      file = fname, append = TRUE)
+```
 
-## Rstudio
+## Installing R Packages (Development Server)
 
-community edition great for individual use...
-Exploring rstudio pro... much better suited for parallel projects and groups
+- In `rpkgs`: `install.packages()`
+
+Unless you need system libraries (e.g., CentOS)
+
+https://github.com/bi-sdal/infrastructure_submodules#installing-the-system-library-for-all-docker-images
+
+1. Add the installation in the `mro` `Dockerfile`, e.g., `yum install -y jq-devel && \`
+2. Build the base `mro`, `rpkgs`, `rstudio`, and `shiny` images
+3. Push the images to dockerhub, `docker push`
+```bash
+docker push sdal/mro-c7sd_auth
+docker push sdal/rss-mro-c7sd_auth
+docker push sdal/rpkgs-mro-c7sd_auth
+docker push sdal/shy-mro-c7sd_auth
+```
+
+## Installing R Packages (Production Server)
+
+1. Pull the images from dockerhub, `docker pull`
+```bash
+docker pull sdal/mro-c7sd_auth
+docker pull sdal/rss-mro-c7sd_auth
+docker pull sdal/rpkgs-mro-c7sd_auth
+docker pull sdal/shy-mro-c7sd_auth
+```
+
+2. Start up the RStudio containers, `docker-compose -f rstudio-compose.yml up -d --no-recreate`
+
+## RStudio Server
+
+- Open Source Edition great for individual use
+  - Pretty much building the Pro stack...
+  - `nginx`
+    - web server: reverse proxy, load balancer,  and HTTP cache
+- Exploring RStudio Pro... much better suited for parallel projects, groups, and teams (?)
+
+## RStudio Server for Everyone
+
+`docker-compose.yml`/`rstudio-compose.yml`:
+```yaml
+volumes:
+  rpkgs:
+
+services:
+  rstudio_chend:
+    image: sdal/rss-mro-c7sd_auth
+    container_name: rstudio_chend
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /etc/group:/etc/group
+      - /home:/home
+      - rpkgs:/rpkgs
+      - checkpoint:/checkpoint
+    cap_add:
+      - SYS_ADMIN
+    ports:
+      - 3125:8787
+```
 
 ## Authorship
 
+- Collaborative $\LaTeX$ with real-time rendering... with Git!
 
-## Balancing good practices
+<div class="column-left2">
+<img src='./figs/logo_overleaf.png' width='100%' />
+
+Virginia Tech Libraries provides free Overleaf Pro+ accounts
+</div>
+<div class="column-right2">
+<img src='./figs/logo_sharelatex.png' width='100%'/>
+<ul>
+  <li>[Try it with Docker!][17]</li>
+  <li>[docker-compose.yml][18]</li>
+  <ul>
+    <li>ShareLaTeX</li>
+    <li>MongoDB</li>
+    <li>Redis</li>
+  </ul>
+</ul>
+</div>
+
+## Sharing Documenting Projects
+
+<div class="column-left2">
+<img src='./figs/logo_drupal.png' />
+</div>
+<div class="column-left2">
+<img src='./figs/logo_python.png' /><br>
+<img src='./figs/logo_django.png' /><br>
+<img src='./figs/logo_wagtail.png' />
+</div>
+
+# The Skills
+
+## Git *is* hard & Shell (Bash) is the glue
+
+<div class="column-left2">
+<center>
+<img src='./figs/pic_greg.jpg' height='200px' />
+<br>
+Greg Wilson
+<br>
+Head of Instructor Training @ DataCamp
+<br>
+Co-founder of Software Carpentry
+</center>
+</div>
+<div class="column-right2">
+Free DataCamp Courses:
+<ul>
+    <li><a href='https://www.datacamp.com/courses/introduction-to-shell-for-data-science'>Introduction to Shell for Data Science</a></li>
+    <li><a href='https://www.datacamp.com/courses/introduction-to-git-for-data-science'>Introduction to Git for Data Science</a></li>
+</ul>
+
+
+<a href='https://software-carpentry.org/lessons/'>Software-Carpentry Lessons:</a>
+
+<ul>
+    <li>Shell</li>
+    <li>Git/Mercurial</li>
+    <li>SQL</li>
+    <li>Python</li>
+    <li>R</li>
+    <li>MATLAB</li>
+    <li>Make</li>
+</ul>
+</div>
+
+## Balancing best/good practices... | ... with getting work done
+
+<div class="columns-2">
+<center>
+<img src='./figs/pic_titus.jpg' height='250px'/>
+<br>
+Titus Brown<br>
+Associate Professor at UC Davis
+</center>
+
+**Write Functions!** in your projects
+
+- Software-Carpentry Lessons
+    - [Programming with R][20]
+    - [R for Reproducible Scientific Analysis][21]
+- DataCamp has an *entire* [course][22]
+<hr>
+- No need to package up functions that you won't be using again
+- But when you start to use them in multiple projects...
+    - Expand your function to be more general and robust
+    - Move it in to a package.
+
+</div>
+
+## No `setwd()`!
+
+- Use rprojects!
+    - Open them: `rstudioapi::openProject(...)`
+- `here` package, "A simple interface to rprojroot": https://github.com/r-lib/here
+    - `print(R.utils::sourceDirectory(here::here('shiny', 'functions')))`
+    - No more `if (interactive()){...}`
+- `rprojroot`: https://github.com/r-lib/rprojroot
 
 ## Saving things
 
+- Save out long calculations into intermediate datasets
+- Use `base::saveRDS()` and `base::readRDS()`
+    - vs `base::save()` and `base::load()`
+
+
+```{r, echo=TRUE}
+v <- 1:10 # I want to save this...
+
+save(v, file = 'awesome_datascience.RData')
+rm(v)
+load(file = 'awesome_datascience.RData')
+v
+
+saveRDS(v, file = 'super_awesome_datascience.RDS')
+loaded <- readRDS(file = 'super_awesome_datascience.RDS')
+loaded
+```
+
 ## Secrets
+- Hardcoding secrets (e.g., passwords, API keys) in your code
+- Reverting lines before a `commit`
+- Sourcing a special ignored file
 
-## Opening things
+```r
+# uses console or rstudio to do password prompt
+getPass::getPass("database username")
+```
 
-rstudioapi::openProject(newProject)
-here
-https://github.com/r-lib/rprojroot
+## Secret Library
 
-# Cookbooks
+```r
+.secret_to_keep <- function(user, pass) {
+    if (is.null(pass)) {
+        ### <b>
+        pass <- getPass("LDAP Password (the one you use to login to Lightfoot and RStudio):")
+        ### </b>
+    }
+    secret_to_keep <- c(password = pass,
+                        username = user)
+    return(secret_to_keep)
+}
 
-## Graphics
+setup_user_pass <- function(username = unname(Sys.info()['user']),
+                            password = NULL,
+                            public_key = '~/.ssh/id_rsa.pub',
+                            vault = '/home/sdal/projects/sdal/vault',
+                            secret_name = unname(Sys.info()['user']),
+                            verbose = FALSE) {
+    ### <b>
+    add_user(username, public_key, vault)
+    secret_to_keep <- .secret_to_keep(user = username, pass = password)
+    add_secret(secret_name, secret_to_keep, users = username, vault = vault)
+    ### </b>
+}
 
-## 
+get_my_password <- function(secret_name = unname(Sys.info()['user']),
+                            key = local_key(),
+                            vault = '/home/sdal/projects/sdal/vault') {
+    ### <b>
+    return(unname(get_secret(secret_name, key , vault)['password']))
+    ### </b>
+}
+```
 
+## Package!
 
-A Better Default Colormap for Matplotlib | SciPy 2015 | Nathaniel Smith and Stéfan van der Walt
-- https://www.youtube.com/watch?v=xAoljeRJ3lU
-- "perceptually uniform"
-- Sequential
-- Works well in black-and-white
-- Colorblind friendly
-- Matlab: parula
+I learned from last year, we should all probably just create packages for ourselves/group/lab/company
 
-## Virdis
+`sdalr`, https://github.com/bi-sdal/sdalr/blob/master/R/user_pass.R
 
-*Dendroaspis* virdis, a snake
-*Chromis* virdis, a fish
-*Tersina* virdis, a bird
-
-vs parula: more brightness variation
-
-Viscm, a tool to see how "good" your colormap is: http://bids.github.io/colormap/
-
-Perceptual Color Maps in matplotlib for Oceanography | SciPy 2015 | Kristen Thyng
-- Domain specific color maps (Oceanography)
-- https://www.youtube.com/watch?v=XjHzLUnHeM0
-
-- R Package
-https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
-
-Simon Garnier, **Noam Ross**, Bob Rudis, Marco Sciaini, Cédric Scherer
-
-## Themes
-
-## Other things (GIS)
-
-## Make your own "flight rules"
-
-## RMarkdown
-
-link to markdown talk(s)
-
-mention the 'fix' to knitting documents
+<center>
+<img src='./figs/book_cover_r_packages.png' height='350px'>
+</center>
 
 ## Testing
 
-Link to talk 2 years ago
+RStatsNYC 2016: Data Testing
 
-Show how to 'test' outside a package
+- Repo: https://github.com/chendaniely/2016-04-08-rstatsnyc_testing
+- Video: https://www.youtube.com/watch?v=CAy0udiWwmg
+
+
+# Cookbooks
+
+## RMarkdown
+
+- This presentation is written in it!
+- 
+- I've given Meetup Talks about it: [NYC][26], [DC][27]
+- Websites, Books, Presentations, Dashboards, Reports...
+    - https://rmarkdown.rstudio.com/
+
+## Graphics Cookbook
+
+- How to do something
+- Gallery of plots
+- Similar to: http://www.cookbook-r.com/Graphs/
+
+<center>
+<img src='./figs/book_cover_graphics_cookbook.png' height='350px'>
+</center>
+
+
+## A Better Default Colormap for Matplotlib | SciPy 2015 | Nathaniel Smith and Stéfan van der Walt
+
+- https://www.youtube.com/watch?v=xAoljeRJ3lU
+- "Perceptually uniform", sequential, works well in black-and-white, Colorblind friendly
+- Matlab: parula
+
+<center>
+<img src='./figs/youtube_scipy2015_colormap.png' height='350px'>
+</center>
+
+## Virdis
+
+`viscm`, a tool to see how "good" your colormap is: http://bids.github.io/colormap/
+
+- R Package!
+  - https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
+  - by: Simon Garnier, **Noam Ross**, Bob Rudis, Marco Sciaini, Cédric Scherer
+
+<center>
+<img src='./figs/colormap_virdis.png' height='350px'>
+</center>
+
+## Perceptual Color Maps in matplotlib for Oceanography | SciPy 2015 | Kristen Thyng
+- Domain specific color maps (Oceanography): https://www.youtube.com/watch?v=XjHzLUnHeM0
+
+<center>
+<img src='./figs/colormap_cmtamu.png' height='350px'>
+</center>
+
+## Colorbrewer
+
+<center>
+<img src='./figs/website_colorbrewer.png' height='500px'>
+</center>
+
+## Other things
+
+- Cookbooks for you own usecases (e.g., GIS)
+- Make your own "flight rules"
+
+>  *Flight Rules* are the hard-earned body of knowledge recorded in manuals that list, step-by-step, what to do if X occurs, and why. Essentially, they are extremely detailed, scenario-specific standard operating procedures. [...]
+
+> NASA has been capturing our missteps, disasters and solutions since the early 1960s, when Mercury-era ground teams first started gathering "lessons learned" into a compendium that now lists thousands of problematic situations [...] and their solutions.
+
+&mdash; Chris Hadfield, *An Astronaut's Guide to Life*.
+
+<center>
+<img src='./figs/twitter_git_flight_rules.png' height='350px'>
+</center>
+
+## Why?
+
+> Our planet needs our help, and we need (good) science to fix it.
+
+&mdash; Greg Wilson
+
+# Thanks, again!
+
+## :) #rstatsnyc #nycdatamafia
+
+<div class="column-left2">
+<center>
+<small>
+[#hobbestheblueheelermix][24]<br>
+[#rdogladies][25]
+</small>
+</center>
+<img src='./figs/hobbes.jpg' width='90%'/>
+#bowtiesarecool
+</div>
+<div class="column-left2">
+chendaniely:
+<ul>
+    <li>twitter</li>
+    <li>github</li>
+    <li>github.io</li>
+    <li>instagram</li>
+</ul>
+Slides:<br />
+<a href='>https://github.com/chendaniely/rstatsnyc_2018-data_science'>
+<font size="3">
+    https://github.com/chendaniely/rstatsnyc_2018-data_science
+</font>
+</a>
+</div>
 
 
 [1]: https://www.bi.vt.edu/sdal
@@ -340,3 +644,14 @@ Show how to 'test' outside a package
 [14]: https://github.com/Reproducible-Science-Curriculum/rr-init
 [15]: https://github.com/chendaniely/computational-project-cookie-cutter
 [16]: http://chendaniely.github.io/sdal/2017/07/07/vm_lxc_docker/
+[17]: https://github.com/sharelatex/sharelatex/wiki/Quick-Start-Guide
+[18]: https://github.com/sharelatex/sharelatex/blob/master/docker-compose.yml
+[19]: https://www.overleaf.com/edu/vtech
+[20]: http://swcarpentry.github.io/r-novice-inflammation/02-func-R/
+[21]: http://swcarpentry.github.io/r-novice-gapminder/10-functions/
+[22]: https://www.datacamp.com/courses/writing-functions-in-r/
+[23]: https://software-carpentry.org/lessons/
+[24]: https://www.instagram.com/explore/tags/hobbestheblueheelermix/
+[25]: https://twitter.com/hashtag/rdogladies
+[26]: https://github.com/chendaniely/2017-06-26-meetup-r_you_markDown
+[27]: https://github.com/chendaniely/2017-08-15-meetup-r_you_markDown
