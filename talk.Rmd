@@ -412,6 +412,7 @@ Free DataCamp Courses:
 Titus Brown<br>
 Associate Professor at UC Davis
 </center>
+<br><br><br>
 
 **Write Functions!** in your projects
 
@@ -625,6 +626,10 @@ Slides:<br />
     https://github.com/chendaniely/rstatsnyc_2018-data_science
 </font>
 </a>
+<br><br>
+<center>
+<img src='./figs/sticker_rdogladies.png' height='200px'/>
+</center>
 </div>
 
 
